@@ -29,6 +29,12 @@ function Cloud(x_pos, y_pos) {
   this.y_pos = y_pos;
 }
 
+function Canyon(x_pos) {
+  this.x_pos = x_pos;
+  this.y_pos = 432;
+  this.width = 100;
+}
+
 function preload() {
   soundFormats("mp3", "wav");
 
@@ -72,9 +78,10 @@ function draw() {
   drawTrees();
 
   // Draw canyons.
-  for (var i = 0; i < canyons.length; i++) {
-    drawCanyon(canyons[i]);
-    checkCanyon(canyons[i]);
+  for (var i = 0; i < 3; i++) {
+    var canyon = new Canyon(55);
+    drawCanyon(canyon, i);
+    checkCanyon(canyon);
     if (isPlummeting && gameChar_y >= height) {
       checkPlayerDie();
     }
@@ -190,25 +197,6 @@ function startGame() {
     isReached: false,
   };
 
-  // clouds = [
-  //   {
-  //     x_pos: 150,
-  //     y_pos: 140,
-  //   },
-  //   {
-  //     x_pos: 350,
-  //     y_pos: 160,
-  //   },
-  //   {
-  //     x_pos: 650,
-  //     y_pos: 120,
-  //   },
-  //   {
-  //     x_pos: 800,
-  //     y_pos: 150,
-  //   },
-  // ];
-
   collectables = [
     {
       x_pos: 170,
@@ -233,24 +221,6 @@ function startGame() {
       y_pos: floorPos_y,
       size: 30,
       isFound: false,
-    },
-  ];
-
-  canyons = [
-    {
-      x_pos: 55,
-      width: 100,
-      y_pos: 432,
-    },
-    {
-      x_pos: 275,
-      width: 100,
-      y_pos: 432,
-    },
-    {
-      x_pos: 875,
-      width: 100,
-      y_pos: 432,
     },
   ];
 }
@@ -434,10 +404,10 @@ function drawMountains() {
 
 // Function to draw trees objects.
 function drawTrees() {
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 5; i++) {
     // add trunk
     fill(205, 133, 63);
-    var tree = new Tree(-200 + i * 200);
+    var tree = new Tree(-500 + i * i * 100);
     rect(tree.x_pos, tree.y_pos - 10, 30, 100);
 
     // add branches
@@ -461,10 +431,10 @@ function drawTrees() {
 
 // Function to draw canyon objects.
 
-function drawCanyon(t_canyon) {
+function drawCanyon(canyon, i) {
   stroke(0);
   fill(71, 63, 63);
-  rect(t_canyon.x_pos, t_canyon.y_pos, t_canyon.width, 145, 2);
+  rect(canyon.x_pos + 200 * i * i, canyon.y_pos, canyon.width, 145, 2);
 }
 
 // Function to check character is over a canyon.
