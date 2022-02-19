@@ -24,6 +24,11 @@ function Mountain(x1_pos) {
   this.y3_pos = floorPos_y;
 }
 
+function Cloud(x_pos, y_pos) {
+  this.x_pos = x_pos;
+  this.y_pos = y_pos;
+}
+
 function preload() {
   soundFormats("mp3", "wav");
 
@@ -185,24 +190,24 @@ function startGame() {
     isReached: false,
   };
 
-  clouds = [
-    {
-      x_pos: 150,
-      y_pos: 140,
-    },
-    {
-      x_pos: 350,
-      y_pos: 160,
-    },
-    {
-      x_pos: 650,
-      y_pos: 120,
-    },
-    {
-      x_pos: 800,
-      y_pos: 150,
-    },
-  ];
+  // clouds = [
+  //   {
+  //     x_pos: 150,
+  //     y_pos: 140,
+  //   },
+  //   {
+  //     x_pos: 350,
+  //     y_pos: 160,
+  //   },
+  //   {
+  //     x_pos: 650,
+  //     y_pos: 120,
+  //   },
+  //   {
+  //     x_pos: 800,
+  //     y_pos: 150,
+  //   },
+  // ];
 
   collectables = [
     {
@@ -375,11 +380,12 @@ function drawGameChar() {
 
 // Function to draw cloud objects.
 function drawClouds() {
-  for (var i = 0; i < clouds.length; i++) {
+  for (var i = 0; i < 4; i++) {
     fill(255, 255, 255);
-    ellipse(clouds[i].x_pos, clouds[i].y_pos, 80, 60);
-    ellipse(clouds[i].x_pos + 40, clouds[i].y_pos, 80, 50);
-    ellipse(clouds[i].x_pos - 40, clouds[i].y_pos, 80, 50);
+    var cloud = new Cloud(120 + i * 250, 120 + i * 30);
+    ellipse(cloud.x_pos, cloud.y_pos, 80, 60);
+    ellipse(cloud.x_pos + 40, cloud.y_pos, 80, 50);
+    ellipse(cloud.x_pos - 40, cloud.y_pos, 80, 50);
   }
 }
 
