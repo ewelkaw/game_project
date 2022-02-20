@@ -235,10 +235,10 @@ function drawGameChar() {
   // draw game character
   if (isLeft && isFalling) {
     // add your jumping-left code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 7, gameChar_y - 42, 15, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 15, 35);
     // legs
     triangle(
@@ -257,10 +257,10 @@ function drawGameChar() {
     ellipse(gameChar_x, gameChar_y - 60, 10, 10);
   } else if (isRight && isFalling) {
     // add your jumping-right
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 7, gameChar_y - 42, 15, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 15, 35);
     // legs
     triangle(
@@ -279,10 +279,10 @@ function drawGameChar() {
     ellipse(gameChar_x, gameChar_y - 60, 10, 10);
   } else if (isLeft) {
     // add your walking left code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 7, gameChar_y - 42, 15, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 15, 35);
     // legs
     rect(gameChar_x - 3, gameChar_y - 7, 8, 10);
@@ -294,10 +294,10 @@ function drawGameChar() {
     ellipse(gameChar_x, gameChar_y - 60, 10, 10);
   } else if (isRight) {
     // add your walking right code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 7, gameChar_y - 42, 15, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 15, 35);
     // legs
     rect(gameChar_x - 5, gameChar_y - 7, 8, 10);
@@ -309,10 +309,10 @@ function drawGameChar() {
     ellipse(gameChar_x, gameChar_y - 60, 10, 10);
   } else if (isFalling || isPlummeting) {
     // add your jumping facing forwards code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 10, gameChar_y - 42, 20, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 25, 35);
     // legs
     rect(gameChar_x + 2, gameChar_y - 7, 8, 10);
@@ -326,10 +326,10 @@ function drawGameChar() {
     ellipse(gameChar_x + 5, gameChar_y - 60, 10, 10);
   } else {
     // add your standing front facing code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 10, gameChar_y - 42, 20, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 25, 35);
     // legs
     rect(gameChar_x + 2, gameChar_y - 7, 8, 10);
@@ -432,8 +432,7 @@ function drawTrees() {
 // Function to draw canyon objects.
 
 function drawCanyon(canyon, i) {
-  stroke(0);
-  fill(71, 63, 63);
+  fill(0);
   rect(canyon.x_pos + 200 * i * i, canyon.y_pos, canyon.width, 145, 2);
 }
 
@@ -459,8 +458,8 @@ function checkCanyon(t_canyon) {
 // Function to draw collectable objects.
 
 function drawCollectable(t_collectable) {
-  stroke(242, 129, 9);
-  fill(242, 226, 9);
+  stroke(150, 150, 150);
+  fill(245, 226, 105);
   ellipse(
     t_collectable.x_pos,
     t_collectable.y_pos,
