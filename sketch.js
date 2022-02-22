@@ -494,10 +494,10 @@ function checkCollectable(t_collectable) {
 }
 
 function renderFlagpole(flagpole) {
-  stroke(130, 130, 130);
-  strokeWeight(5);
+  stroke(255);
+  strokeWeight(3);
   line(flagpole.x_pos, floorPos_y, flagpole.x_pos, floorPos_y - 200);
-  fill(230, 76, 114);
+  fill(252, 186, 3);
   if (flagpole.isReached) {
     rect(flagpole.x_pos, floorPos_y - 200, 60, 40);
   } else {
