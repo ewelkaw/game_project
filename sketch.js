@@ -29,8 +29,8 @@ function Cloud(x_pos, y_pos) {
   this.y_pos = y_pos;
 }
 
-function Canyon(x_pos) {
-  this.x_pos = x_pos;
+function Canyon(x_pos, i) {
+  this.x_pos = x_pos + 200 * i * i;
   this.y_pos = 432;
   this.width = 100;
 }
@@ -79,8 +79,8 @@ function draw() {
 
   // Draw canyons.
   for (var i = 0; i < 3; i++) {
-    var canyon = new Canyon(55);
-    drawCanyon(canyon, i);
+    var canyon = new Canyon(55, i);
+    drawCanyon(canyon);
     checkCanyon(canyon);
     if (isPlummeting && gameChar_y >= height) {
       checkPlayerDie();
@@ -431,18 +431,19 @@ function drawTrees() {
 
 // Function to draw canyon objects.
 
-function drawCanyon(canyon, i) {
+function drawCanyon(canyon) {
   fill(0);
-  rect(canyon.x_pos + 200 * i * i, canyon.y_pos, canyon.width, 145, 2);
+  rect(canyon.x_pos, canyon.y_pos, canyon.width, 145, 2);
 }
 
 // Function to check character is over a canyon.
 
-function checkCanyon(t_canyon) {
+function checkCanyon(canyon) {
+  console.log("canyon " + canyon.x_pos);
   if (
-    t_canyon.x_pos <= gameChar_world_x &&
-    gameChar_world_x <= t_canyon.x_pos + t_canyon.width &&
-    gameChar_y >= t_canyon.y_pos
+    canyon.x_pos <= gameChar_world_x &&
+    gameChar_world_x <= canyon.x_pos + canyon.width &&
+    gameChar_y >= canyon.y_pos
   ) {
     isPlummeting = true;
     gameChar_y += 5;
