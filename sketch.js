@@ -8,27 +8,46 @@ https://freesound.org/
 
 */
 
-
-
 var jumpSound;
 
-function preload()
-{
-    soundFormats('mp3','wav');
-    
-    //load your sounds here
-    jumpSound = loadSound('assets/jump.wav');
-    jumpSound.setVolume(0.1);
+function Tree(x_pos) {
+  this.x_pos = width / 2 + x_pos;
+  this.y_pos = -90 + floorPos_y;
 }
 
+function Mountain(x1_pos) {
+  this.x1_pos = x1_pos;
+  this.y1_pos = floorPos_y;
+  this.x2_pos = x1_pos + 50;
+  this.y2_pos = floorPos_y - 232;
+  this.x3_pos = x1_pos + 150;
+  this.y3_pos = floorPos_y;
+}
 
-function setup()
-{
-	  createCanvas(1024, 576);
-      floorPos_y = (height * 3) / 4;
-      lives = 3;
-      startGame();
+function Cloud(x_pos, y_pos) {
+  this.x_pos = x_pos;
+  this.y_pos = y_pos;
+}
 
+function Canyon(x_pos, i) {
+  this.x_pos = x_pos + 200 * i * i;
+  this.y_pos = 432;
+  this.width = 100;
+}
+
+function preload() {
+  soundFormats("mp3", "wav");
+
+  //load your sounds here
+  jumpSound = loadSound("assets/jump.wav");
+  jumpSound.setVolume(0.1);
+}
+
+function setup() {
+  createCanvas(1024, 576);
+  floorPos_y = (height * 3) / 4;
+  lives = 3;
+  startGame();
 }
 
 function draw() {
@@ -59,11 +78,11 @@ function draw() {
   drawTrees();
 
   // Draw canyons.
-  for (var i = 0; i < canyons.length; i++) {
-    drawCanyon(canyons[i]);
-    checkCanyon(canyons[i]);
+  for (var i = 0; i < 3; i++) {
+    var canyon = new Canyon(55, i);
+    drawCanyon(canyon);
+    checkCanyon(canyon);
     if (isPlummeting && gameChar_y >= height) {
-      console.log("isPlummeting", isPlummeting);
       checkPlayerDie();
     }
   }
@@ -129,10 +148,6 @@ function draw() {
 function keyPressed() {
   // if statements to control the animation of the character when
   // keys are pressed.
-
-  //open up the console to see how these work
-  console.log("keyPressed: " + key);
-  console.log("keyPressed: " + keyCode);
   if (keyCode == 37) {
     // moving left
     isLeft = true;
@@ -149,9 +164,6 @@ function keyPressed() {
 function keyReleased() {
   // if statements to control the animation of the character when
   // keys are released.
-
-  console.log("keyReleased: " + key);
-  console.log("keyReleased: " + keyCode);
   if (keyCode == 37) {
     isLeft = false;
   } else if (keyCode == 39) {
@@ -184,57 +196,6 @@ function startGame() {
     x_pos: 1100,
     isReached: false,
   };
-  trees = [
-    { x_pos: width / 2 - 200, y_pos: -200 / 2 + floorPos_y + 10 },
-    { x_pos: width / 2, y_pos: -200 / 2 + floorPos_y + 10 },
-    { x_pos: width / 2 + 150, y_pos: -200 / 2 + floorPos_y + 10 },
-    { x_pos: width / 2 + 350, y_pos: -200 / 2 + floorPos_y + 10 },
-  ];
-  clouds = [
-    {
-      x_pos: 150,
-      y_pos: 140,
-    },
-    {
-      x_pos: 350,
-      y_pos: 160,
-    },
-    {
-      x_pos: 650,
-      y_pos: 120,
-    },
-    {
-      x_pos: 800,
-      y_pos: 150,
-    },
-  ];
-
-  mountains = [
-    {
-      x1_pos: 100,
-      y1_pos: floorPos_y,
-      x2_pos: 150,
-      y2_pos: floorPos_y - 232,
-      x3_pos: 250,
-      y3_pos: floorPos_y,
-    },
-    {
-      x1_pos: 590,
-      y1_pos: floorPos_y,
-      x2_pos: 640,
-      y2_pos: floorPos_y - 232,
-      x3_pos: 740,
-      y3_pos: floorPos_y,
-    },
-    {
-      x1_pos: 870,
-      y1_pos: floorPos_y,
-      x2_pos: 920,
-      y2_pos: floorPos_y - 232,
-      x3_pos: 1020,
-      y3_pos: floorPos_y,
-    },
-  ];
 
   collectables = [
     {
@@ -262,24 +223,6 @@ function startGame() {
       isFound: false,
     },
   ];
-
-  canyons = [
-    {
-      x_pos: 55,
-      width: 100,
-      y_pos: 432,
-    },
-    {
-      x_pos: 275,
-      width: 100,
-      y_pos: 432,
-    },
-    {
-      x_pos: 875,
-      width: 100,
-      y_pos: 432,
-    },
-  ];
 }
 
 // ------------------------------
@@ -292,10 +235,10 @@ function drawGameChar() {
   // draw game character
   if (isLeft && isFalling) {
     // add your jumping-left code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 7, gameChar_y - 42, 15, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 15, 35);
     // legs
     triangle(
@@ -314,10 +257,10 @@ function drawGameChar() {
     ellipse(gameChar_x, gameChar_y - 60, 10, 10);
   } else if (isRight && isFalling) {
     // add your jumping-right
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 7, gameChar_y - 42, 15, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 15, 35);
     // legs
     triangle(
@@ -336,10 +279,10 @@ function drawGameChar() {
     ellipse(gameChar_x, gameChar_y - 60, 10, 10);
   } else if (isLeft) {
     // add your walking left code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 7, gameChar_y - 42, 15, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 15, 35);
     // legs
     rect(gameChar_x - 3, gameChar_y - 7, 8, 10);
@@ -351,10 +294,10 @@ function drawGameChar() {
     ellipse(gameChar_x, gameChar_y - 60, 10, 10);
   } else if (isRight) {
     // add your walking right code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 7, gameChar_y - 42, 15, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 15, 35);
     // legs
     rect(gameChar_x - 5, gameChar_y - 7, 8, 10);
@@ -366,10 +309,10 @@ function drawGameChar() {
     ellipse(gameChar_x, gameChar_y - 60, 10, 10);
   } else if (isFalling || isPlummeting) {
     // add your jumping facing forwards code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 10, gameChar_y - 42, 20, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 25, 35);
     // legs
     rect(gameChar_x + 2, gameChar_y - 7, 8, 10);
@@ -383,10 +326,10 @@ function drawGameChar() {
     ellipse(gameChar_x + 5, gameChar_y - 60, 10, 10);
   } else {
     // add your standing front facing code
-    fill(168, 84, 50);
+    fill(52, 189, 235);
     rect(gameChar_x - 10, gameChar_y - 42, 20, 35);
     //    head, hands, legs
-    fill(129, 168, 50);
+    fill(245, 226, 105);
     ellipse(gameChar_x, gameChar_y - 55, 25, 35);
     // legs
     rect(gameChar_x + 2, gameChar_y - 7, 8, 10);
@@ -407,89 +350,78 @@ function drawGameChar() {
 
 // Function to draw cloud objects.
 function drawClouds() {
-  for (var i = 0; i < clouds.length; i++) {
+  for (var i = 0; i < 4; i++) {
     fill(255, 255, 255);
-    ellipse(clouds[i].x_pos, clouds[i].y_pos, 80, 60);
-    ellipse(clouds[i].x_pos + 40, clouds[i].y_pos, 80, 50);
-    ellipse(clouds[i].x_pos - 40, clouds[i].y_pos, 80, 50);
+    var cloud = new Cloud(120 + i * 250, 120 + i * 30);
+    ellipse(cloud.x_pos, cloud.y_pos, 80, 60);
+    ellipse(cloud.x_pos + 40, cloud.y_pos, 80, 50);
+    ellipse(cloud.x_pos - 40, cloud.y_pos, 80, 50);
   }
 }
 
 // Function to draw mountains objects.
 function drawMountains() {
-  for (var i = 0; i < mountains.length; i++) {
+  for (var i = 0; i < 4; i++) {
     // add mountain
     fill(150, 150, 150);
+    var mountain = new Mountain(100);
     triangle(
-      mountains[i].x1_pos,
-      mountains[i].y1_pos,
-      mountains[i].x2_pos,
-      mountains[i].y2_pos,
-      mountains[i].x3_pos,
-      mountains[i].y3_pos
+      mountain.x1_pos * i,
+      mountain.y1_pos,
+      mountain.x2_pos * i,
+      mountain.y2_pos,
+      mountain.x3_pos * i,
+      mountain.y3_pos
     );
     triangle(
-      mountains[i].x1_pos + 100,
-      mountains[i].y1_pos,
-      mountains[i].x2_pos + 80,
-      mountains[i].y2_pos + 100,
-      mountains[i].x3_pos,
-      mountains[i].y3_pos
+      (mountain.x1_pos + 100) * i,
+      mountain.y1_pos,
+      (mountain.x2_pos + 80) * i,
+      mountain.y2_pos + 100,
+      mountain.x3_pos * i,
+      mountain.y3_pos
     );
     // add snow at the top of mountain
     fill(255, 255, 255);
     triangle(
-      mountains[i].x1_pos + 43,
-      mountains[i].y1_pos - 200,
-      mountains[i].x2_pos,
-      mountains[i].y2_pos,
-      mountains[i].x3_pos - 85,
-      mountains[i].y3_pos - 200
+      (mountain.x1_pos + 43) * i,
+      mountain.y1_pos - 200,
+      mountain.x2_pos * i,
+      mountain.y2_pos,
+      (mountain.x3_pos - 85) * i,
+      mountain.y3_pos - 200
     );
     triangle(
-      mountains[i].x1_pos + 125,
-      mountains[i].y1_pos - 102,
-      mountains[i].x2_pos + 80,
-      mountains[i].y2_pos + 100,
-      mountains[i].x3_pos - 15,
-      mountains[i].y3_pos - 102
+      (mountain.x1_pos + 125) * i,
+      mountain.y1_pos - 102,
+      (mountain.x2_pos + 80) * i,
+      mountain.y2_pos + 100,
+      (mountain.x3_pos - 15) * i,
+      mountain.y3_pos - 102
     );
   }
 }
 
 // Function to draw trees objects.
 function drawTrees() {
-  for (var i = 0; i < trees.length; i++) {
+  for (var i = 0; i < 5; i++) {
     // add trunk
     fill(205, 133, 63);
-    rect(trees[i].x_pos, trees[i].y_pos - 10, 30, 100);
+    var tree = new Tree(-500 + i * i * 100);
+    rect(tree.x_pos, tree.y_pos - 10, 30, 100);
 
     // add branches
     fill(0, 155, 0);
-    triangle(
-      trees[i].x_pos - 40,
-      trees[i].y_pos,
-      trees[i].x_pos + 15,
-      trees[i].y_pos - 52,
-      trees[i].x_pos + 70,
-      trees[i].y_pos
-    );
-    triangle(
-      trees[i].x_pos - 40,
-      trees[i].y_pos - 40,
-      trees[i].x_pos + 15,
-      trees[i].y_pos - 102,
-      trees[i].x_pos + 70,
-      trees[i].y_pos - 40
-    );
-    triangle(
-      trees[i].x_pos - 40,
-      trees[i].y_pos - 80,
-      trees[i].x_pos + 15,
-      trees[i].y_pos - 152,
-      trees[i].x_pos + 70,
-      trees[i].y_pos - 80
-    );
+    for (var j = 0; j < 3; j++) {
+      triangle(
+        tree.x_pos - 40,
+        tree.y_pos - 40 * j,
+        tree.x_pos + 15,
+        tree.y_pos - 52 - 50 * j,
+        tree.x_pos + 70,
+        tree.y_pos - 40 * j
+      );
+    }
   }
 }
 
@@ -499,19 +431,19 @@ function drawTrees() {
 
 // Function to draw canyon objects.
 
-function drawCanyon(t_canyon) {
-  stroke(0);
-  fill(71, 63, 63);
-  rect(t_canyon.x_pos, t_canyon.y_pos, t_canyon.width, 145, 2);
+function drawCanyon(canyon) {
+  fill(0);
+  rect(canyon.x_pos, canyon.y_pos, canyon.width, 145, 2);
 }
 
 // Function to check character is over a canyon.
 
-function checkCanyon(t_canyon) {
+function checkCanyon(canyon) {
+  console.log("canyon " + canyon.x_pos);
   if (
-    t_canyon.x_pos <= gameChar_world_x &&
-    gameChar_world_x <= t_canyon.x_pos + t_canyon.width &&
-    gameChar_y >= t_canyon.y_pos
+    canyon.x_pos <= gameChar_world_x &&
+    gameChar_world_x <= canyon.x_pos + canyon.width &&
+    gameChar_y >= canyon.y_pos
   ) {
     isPlummeting = true;
     gameChar_y += 5;
@@ -527,8 +459,8 @@ function checkCanyon(t_canyon) {
 // Function to draw collectable objects.
 
 function drawCollectable(t_collectable) {
-  stroke(242, 129, 9);
-  fill(242, 226, 9);
+  stroke(150, 150, 150);
+  fill(245, 226, 105);
   ellipse(
     t_collectable.x_pos,
     t_collectable.y_pos,
@@ -564,9 +496,9 @@ function checkCollectable(t_collectable) {
 
 function renderFlagpole(flagpole) {
   stroke(255);
-  strokeWeight(5);
+  strokeWeight(3);
   line(flagpole.x_pos, floorPos_y, flagpole.x_pos, floorPos_y - 200);
-  fill(180, 120, 140);
+  fill(252, 186, 3);
   if (flagpole.isReached) {
     rect(flagpole.x_pos, floorPos_y - 200, 60, 40);
   } else {
