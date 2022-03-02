@@ -148,12 +148,15 @@ function draw() {
 function keyPressed() {
   // if statements to control the animation of the character when
   // keys are pressed.
+  console.log("Key_pressed", keyCode, lives);
   if (keyCode == 37) {
     // moving left
     isLeft = true;
   } else if (keyCode == 39) {
     // moving right
     isRight = true;
+  } else if (keyCode == 32 && lives == 0) {
+    checkPlayerDie();
   } else if (keyCode == 32 && gameChar_y >= floorPos_y) {
     // jumping facing forward
     gameChar_y -= 100;
@@ -439,7 +442,6 @@ function drawCanyon(canyon) {
 // Function to check character is over a canyon.
 
 function checkCanyon(canyon) {
-  console.log("canyon " + canyon.x_pos);
   if (
     canyon.x_pos <= gameChar_world_x &&
     gameChar_world_x <= canyon.x_pos + canyon.width &&
