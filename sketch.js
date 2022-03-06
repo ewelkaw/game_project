@@ -148,7 +148,6 @@ function draw() {
 function keyPressed() {
   // if statements to control the animation of the character when
   // keys are pressed.
-  console.log("Key_pressed", keyCode, lives);
   if (keyCode == 37) {
     // moving left
     isLeft = true;
