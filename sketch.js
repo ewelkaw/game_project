@@ -154,7 +154,10 @@ function keyPressed() {
   } else if (keyCode == 39) {
     // moving right
     isRight = true;
-  } else if (keyCode == 32 && lives == 0) {
+  } else if (
+    (keyCode == 32 && lives == 0) ||
+    (keyCode == 32 && flagpole.isReached)
+  ) {
     checkPlayerDie();
   } else if (keyCode == 32 && gameChar_y >= floorPos_y) {
     // jumping facing forward
@@ -201,7 +204,7 @@ function startGame() {
 
   collectables = [
     {
-      x_pos: 170,
+      x_pos: 190,
       y_pos: floorPos_y,
       size: 30,
       isFound: false,
