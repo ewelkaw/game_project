@@ -154,7 +154,10 @@ function keyPressed() {
   } else if (keyCode == 39) {
     // moving right
     isRight = true;
-  } else if (keyCode == 32 && lives == 0) {
+  } else if (
+    (keyCode == 32 && lives == 0) ||
+    (keyCode == 32 && flagpole.isReached)
+  ) {
     checkPlayerDie();
   } else if (keyCode == 32 && gameChar_y >= floorPos_y) {
     // jumping facing forward
@@ -201,7 +204,7 @@ function startGame() {
 
   collectables = [
     {
-      x_pos: 170,
+      x_pos: 190,
       y_pos: floorPos_y,
       size: 30,
       isFound: false,
@@ -352,7 +355,7 @@ function drawGameChar() {
 
 // Function to draw cloud objects.
 function drawClouds() {
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 5; i++) {
     fill(255, 255, 255);
     var cloud = new Cloud(120 + i * 250, 120 + i * 30);
     ellipse(cloud.x_pos, cloud.y_pos, 80, 60);
@@ -363,7 +366,7 @@ function drawClouds() {
 
 // Function to draw mountains objects.
 function drawMountains() {
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 5; i++) {
     // add mountain
     fill(150, 150, 150);
     var mountain = new Mountain(100);
@@ -409,7 +412,7 @@ function drawTrees() {
   for (var i = 0; i < 5; i++) {
     // add trunk
     fill(205, 133, 63);
-    var tree = new Tree(-500 + i * i * 100);
+    var tree = new Tree(-500 + i * i * 70);
     rect(tree.x_pos, tree.y_pos - 10, 30, 100);
 
     // add branches
