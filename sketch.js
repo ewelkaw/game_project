@@ -355,7 +355,7 @@ function drawGameChar() {
 
 // Function to draw cloud objects.
 function drawClouds() {
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 5; i++) {
     fill(255, 255, 255);
     var cloud = new Cloud(120 + i * 250, 120 + i * 30);
     ellipse(cloud.x_pos, cloud.y_pos, 80, 60);
@@ -366,7 +366,7 @@ function drawClouds() {
 
 // Function to draw mountains objects.
 function drawMountains() {
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 5; i++) {
     // add mountain
     fill(150, 150, 150);
     var mountain = new Mountain(100);
@@ -412,7 +412,7 @@ function drawTrees() {
   for (var i = 0; i < 5; i++) {
     // add trunk
     fill(205, 133, 63);
-    var tree = new Tree(-500 + i * i * 100);
+    var tree = new Tree(-500 + i * i * 70);
     rect(tree.x_pos, tree.y_pos - 10, 30, 100);
 
     // add branches
