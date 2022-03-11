@@ -357,7 +357,7 @@ function drawGameChar() {
 function drawClouds() {
   for (var i = 0; i < 5; i++) {
     fill(255, 255, 255);
-    var cloud = new Cloud(120 + i * 250, 120 + i * 30);
+    var cloud = new Cloud(120 + i * 250, 100 + i * 30);
     ellipse(cloud.x_pos, cloud.y_pos, 80, 60);
     ellipse(cloud.x_pos + 40, cloud.y_pos, 80, 50);
     ellipse(cloud.x_pos - 40, cloud.y_pos, 80, 50);
