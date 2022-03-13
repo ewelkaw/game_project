@@ -47,6 +47,8 @@ function setup() {
   createCanvas(1024, 576);
   floorPos_y = (height * 3) / 4;
   lives = 3;
+
+  enemies = [];
   startGame();
 }
 
@@ -523,5 +525,22 @@ function checkPlayerDie() {
   } else {
     lives -= 1;
     startGame();
+  }
+}
+
+function Enemies(x, y, range) {
+  this.x = x;
+  this.y = y;
+  this.range = range;
+  this.currentX = x;
+  this.inc = 1;
+  this.update = funcion();
+  {
+    this.currentX = this.inc;
+    if (this.currentX >= this.x + this.range) {
+      this.inc = -1;
+    } else if (this.currentX < this.x) {
+      this.inc = 1;
+    }
   }
 }
