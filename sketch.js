@@ -47,8 +47,6 @@ function setup() {
   createCanvas(1024, 576);
   floorPos_y = (height * 3) / 4;
   lives = 3;
-
-  enemies = [];
   startGame();
 }
 
@@ -139,6 +137,9 @@ function draw() {
   }
 
   checkFlagpole(flagpole);
+  for (var i = 0; i < enemies.length; i++) {
+    enemies[i].draw();
+  }
   // Update real position of gameChar for collision detection.
   gameChar_world_x = gameChar_x - scrollPos;
 }
@@ -230,6 +231,8 @@ function startGame() {
       isFound: false,
     },
   ];
+  enemies = [];
+  enemies.push(new Enemy(100, floorPos_y - 10, 100));
 }
 
 // ------------------------------
@@ -528,19 +531,24 @@ function checkPlayerDie() {
   }
 }
 
-function Enemies(x, y, range) {
+function Enemy(x, y, range) {
   this.x = x;
   this.y = y;
   this.range = range;
   this.currentX = x;
   this.inc = 1;
-  this.update = funcion();
-  {
+  this.update = function () {
     this.currentX = this.inc;
     if (this.currentX >= this.x + this.range) {
       this.inc = -1;
     } else if (this.currentX < this.x) {
       this.inc = 1;
     }
-  }
+  };
+  this.draw = function () {
+    this.update();
+    fill(255, 0, 0);
+    ellipse(this.currentX, this.y, 20, 20);
+  };
+  this.checkContact = function () {};
 }
