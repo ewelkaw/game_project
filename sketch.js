@@ -9,31 +9,7 @@ https://freesound.org/
 */
 
 var jumpSound;
-
-function Tree(x_pos) {
-  this.x_pos = width / 2 + x_pos;
-  this.y_pos = -90 + floorPos_y;
-}
-
-function Mountain(x1_pos) {
-  this.x1_pos = x1_pos;
-  this.y1_pos = floorPos_y;
-  this.x2_pos = x1_pos + 50;
-  this.y2_pos = floorPos_y - 232;
-  this.x3_pos = x1_pos + 150;
-  this.y3_pos = floorPos_y;
-}
-
-function Cloud(x_pos, y_pos) {
-  this.x_pos = x_pos;
-  this.y_pos = y_pos;
-}
-
-function Canyon(x_pos, i) {
-  this.x_pos = x_pos + 200 * i * i;
-  this.y_pos = 432;
-  this.width = 100;
-}
+var enemies;
 
 function preload() {
   soundFormats("mp3", "wav");
@@ -95,6 +71,18 @@ function draw() {
   }
 
   renderFlagpole(flagpole);
+  for (var i = 0; i < enemies.length; i++) {
+    enemies[i].draw();
+    var isContact = enemies[i].checkContact(gameChar_world_x, gameChar_y);
+    if (isContact) {
+      if (lives > 0) {
+        startGame();
+        lives -= 1;
+        break;
+      }
+    }
+  }
+
   pop();
 
   // Draw game character.
@@ -137,9 +125,9 @@ function draw() {
   }
 
   checkFlagpole(flagpole);
-  for (var i = 0; i < enemies.length; i++) {
-    enemies[i].draw();
-  }
+  // for (var i = 0; i < enemies.length; i++) {
+  //   enemies[i].draw();
+  // }
   // Update real position of gameChar for collision detection.
   gameChar_world_x = gameChar_x - scrollPos;
 }
@@ -231,6 +219,8 @@ function startGame() {
       isFound: false,
     },
   ];
+
+  // Add enemies
   enemies = [];
   enemies.push(new Enemy(100, floorPos_y - 10, 100));
 }
@@ -531,6 +521,31 @@ function checkPlayerDie() {
   }
 }
 
+function Tree(x_pos) {
+  this.x_pos = width / 2 + x_pos;
+  this.y_pos = -90 + floorPos_y;
+}
+
+function Mountain(x1_pos) {
+  this.x1_pos = x1_pos;
+  this.y1_pos = floorPos_y;
+  this.x2_pos = x1_pos + 50;
+  this.y2_pos = floorPos_y - 232;
+  this.x3_pos = x1_pos + 150;
+  this.y3_pos = floorPos_y;
+}
+
+function Cloud(x_pos, y_pos) {
+  this.x_pos = x_pos;
+  this.y_pos = y_pos;
+}
+
+function Canyon(x_pos, i) {
+  this.x_pos = x_pos + 200 * i * i;
+  this.y_pos = 432;
+  this.width = 100;
+}
+
 function Enemy(x, y, range) {
   this.x = x;
   this.y = y;
@@ -538,7 +553,7 @@ function Enemy(x, y, range) {
   this.currentX = x;
   this.inc = 1;
   this.update = function () {
-    this.currentX = this.inc;
+    this.currentX += this.inc;
     if (this.currentX >= this.x + this.range) {
       this.inc = -1;
     } else if (this.currentX < this.x) {
@@ -550,5 +565,11 @@ function Enemy(x, y, range) {
     fill(255, 0, 0);
     ellipse(this.currentX, this.y, 20, 20);
   };
-  this.checkContact = function () {};
+  this.checkContact = function (gc_x, gc_y) {
+    var d = dist(gc_x, gc_y, this.currentX, this.y);
+    if (d < 20) {
+      return true;
+    }
+    return false;
+  };
 }
