@@ -125,9 +125,6 @@ function draw() {
   }
 
   checkFlagpole(flagpole);
-  // for (var i = 0; i < enemies.length; i++) {
-  //   enemies[i].draw();
-  // }
   // Update real position of gameChar for collision detection.
   gameChar_world_x = gameChar_x - scrollPos;
 }
@@ -195,26 +192,26 @@ function startGame() {
 
   collectables = [
     {
-      x_pos: 190,
-      y_pos: floorPos_y,
+      x_pos: 240,
+      y_pos: floorPos_y - 10,
       size: 30,
       isFound: false,
     },
     {
       x_pos: 400,
-      y_pos: floorPos_y,
+      y_pos: floorPos_y - 10,
       size: 30,
       isFound: false,
     },
     {
       x_pos: 650,
-      y_pos: floorPos_y,
+      y_pos: floorPos_y - 10,
       size: 30,
       isFound: false,
     },
     {
       x_pos: 800,
-      y_pos: floorPos_y,
+      y_pos: floorPos_y - 10,
       size: 30,
       isFound: false,
     },
@@ -222,7 +219,7 @@ function startGame() {
 
   // Add enemies
   enemies = [];
-  enemies.push(new Enemy(100, floorPos_y - 10, 100));
+  enemies.push(new Enemy(150, floorPos_y - 10, 100));
 }
 
 // ------------------------------
