@@ -219,7 +219,7 @@ function startGame() {
 
   // Add enemies
   enemies = [];
-  enemies.push(new Enemy(150, floorPos_y - 10, 100));
+  enemies.push(new Enemy(150, floorPos_y - 20, 100));
 }
 
 // ------------------------------
@@ -559,8 +559,22 @@ function Enemy(x, y, range) {
   };
   this.draw = function () {
     this.update();
-    fill(255, 0, 0);
-    ellipse(this.currentX, this.y, 20, 20);
+    stroke(255, 0, 0);
+    strokeWeight(2);
+    fill(236, 104, 102);
+    ellipse(this.currentX, this.y, random(30, 40), random(30, 40));
+    ellipse(this.currentX - 5, this.y - 5, 2, 2);
+    ellipse(this.currentX + 5, this.y - 5, 2, 2);
+    curve(
+      this.currentX - 10,
+      this.y + 15,
+      this.currentX - 5,
+      this.y + 5,
+      this.currentX + 5,
+      this.y + 5,
+      this.currentX + 10,
+      this.y + 15
+    );
   };
   this.checkContact = function (gc_x, gc_y) {
     var d = dist(gc_x, gc_y, this.currentX, this.y);
