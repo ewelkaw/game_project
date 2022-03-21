@@ -580,7 +580,7 @@ function Enemy(x, y, range) {
   };
   this.checkContact = function (gc_x, gc_y) {
     var d = dist(gc_x, gc_y, this.currentX, this.y);
-    if (d < 20) {
+    if (d < 25) {
       return true;
     }
     return false;
