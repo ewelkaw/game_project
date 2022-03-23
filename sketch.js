@@ -219,8 +219,8 @@ function startGame() {
 
   // Add enemies
   enemies = [];
-  for (var i = 0; i < 3; i++) {
-    enemies.push(new Enemy(0 + i * 150, floorPos_y - 20, 100));
+  for (var i = 0; i < 4; i++) {
+    enemies.push(new Enemy(0 + ((i * i) / 2) * 120, floorPos_y - 20, 100));
   }
 }
 
