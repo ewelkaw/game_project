@@ -10,6 +10,7 @@ https://freesound.org/
 
 var jumpSound;
 var enemies;
+var platforms;
 
 function preload() {
   soundFormats("mp3", "wav");
@@ -83,6 +84,9 @@ function draw() {
     }
   }
 
+  for (var i = 0; i < platforms.length; i++) {
+    platforms[i].draw();
+  }
   pop();
 
   // Draw game character.
@@ -222,6 +226,9 @@ function startGame() {
   for (var i = 0; i < 4; i++) {
     enemies.push(new Enemy(0 + ((i * i) / 2) * 120, floorPos_y - 20, 100));
   }
+
+  platforms = [];
+  platforms.push(createPlatforms(255, floorPos_y - 100, 100));
 }
 
 // ------------------------------
@@ -585,4 +592,18 @@ function Enemy(x, y, range) {
     }
     return false;
   };
+}
+
+function createPlatforms(x, y, length) {
+  var p = {
+    x: x,
+    y: y,
+    length: length,
+    draw: function () {
+      fill(0);
+      noStroke();
+      rect(this.x, this.y, this.length, 10);
+    },
+  };
+  return p;
 }
