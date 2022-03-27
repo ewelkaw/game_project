@@ -10,6 +10,7 @@ https://freesound.org/
 
 var jumpSound;
 var enemies;
+var platforms;
 
 function preload() {
   soundFormats("mp3", "wav");
@@ -83,6 +84,9 @@ function draw() {
     }
   }
 
+  for (var i = 0; i < platforms.length; i++) {
+    platforms[i].draw();
+  }
   pop();
 
   // Draw game character.
@@ -118,8 +122,17 @@ function draw() {
   // Logic to make the game character rise and fall.
   ///////////INTERACTION CODE//////////
   if (gameChar_y < floorPos_y) {
-    gameChar_y += 2;
-    isFalling = true;
+    var isContact = false;
+    for (var i = 0; i < platforms.length; i++) {
+      if (platforms[i].checkContact(gameChar_world_x, gameChar_y)) {
+        isContact = true;
+        break;
+      }
+    }
+    if (isContact == false) {
+      gameChar_y += 2;
+      isFalling = true;
+    }
   } else {
     isFalling = false;
   }
@@ -219,8 +232,13 @@ function startGame() {
 
   // Add enemies
   enemies = [];
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 5; i++) {
     enemies.push(new Enemy(0 + ((i * i) / 2) * 120, floorPos_y - 20, 100));
+  }
+
+  platforms = [];
+  for (var i = 0; i < 3; i++) {
+    platforms.push(createPlatforms(105 + i * i * 200, floorPos_y - 100, 100));
   }
 }
 
@@ -585,4 +603,27 @@ function Enemy(x, y, range) {
     }
     return false;
   };
+}
+
+function createPlatforms(x, y, length) {
+  var p = {
+    x: x,
+    y: y,
+    length: length,
+    draw: function () {
+      fill(0);
+      noStroke();
+      rect(this.x, this.y, this.length, 10);
+    },
+    checkContact: function (gc_x, gc_y) {
+      if (gc_x > this.x && gc_x < this.x + this.length) {
+        var d = this.y - gc_y;
+        if (d >= 0 && d < 5) {
+          return true;
+        }
+      }
+      return false;
+    },
+  };
+  return p;
 }
