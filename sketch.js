@@ -37,7 +37,9 @@ function draw() {
   translate(scrollPos, 0);
 
   if (lives < 1) {
+    textAlign(CENTER);
     text("Game over. Press space to continue", width / 2, height / 2);
+    textAlign(LEFT);
     return;
   }
   if (flagpole.isReached) {
