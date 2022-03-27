@@ -122,11 +122,17 @@ function draw() {
   // Logic to make the game character rise and fall.
   ///////////INTERACTION CODE//////////
   if (gameChar_y < floorPos_y) {
+    var isContact = false;
     for (var i = 0; i < platforms.length; i++) {
-      platforms[i].checkContact(gameChar_world_x, gameChar_y);
+      if (platforms[i].checkContact(gameChar_world_x, gameChar_y)) {
+        isContact = true;
+        break;
+      }
     }
-    gameChar_y += 2;
-    isFalling = true;
+    if (isContact == false) {
+      gameChar_y += 2;
+      isFalling = true;
+    }
   } else {
     isFalling = false;
   }
@@ -231,7 +237,9 @@ function startGame() {
   }
 
   platforms = [];
-  platforms.push(createPlatforms(305, floorPos_y - 100, 100));
+  for (var i = 0; i < 3; i++) {
+    platforms.push(createPlatforms(105 + i * i * 200, floorPos_y - 100, 100));
+  }
 }
 
 // ------------------------------
