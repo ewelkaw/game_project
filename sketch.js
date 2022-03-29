@@ -613,7 +613,7 @@ function createPlatforms(x, y, length) {
     y: y,
     length: length,
     draw: function () {
-      fill(255);
+      fill(0);
       noStroke();
       rect(this.x, this.y, this.length, 10);
     },
